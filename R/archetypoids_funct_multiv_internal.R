@@ -8,10 +8,15 @@
 #' solely used.
 #' 
 #' @author 
-#' Guillermo Vinue
+#' Irene Epifanio
 #' 
 #' @seealso 
 #' \code{\link{archetypoids_funct_multiv}}
+#' 
+#' @references 
+#' Epifanio, I., Functional archetype and archetypoid analysis, 2016. 
+#' \emph{Computational Statistics and Data Analysis} \bold{104}, 24-34, 
+#' \url{https://doi.org/10.1016/j.csda.2016.06.007}
 #'                  
 #' General swap function of the functional multivariate archetypoid analysis 
 #' @param vect_arch_ini Initial vector of archetypoids.

@@ -53,6 +53,22 @@ class(lass[[1]][[5]])
 }                                         
 
 }
+\references{
+Cutler, A. and Breiman, L., Archetypal Analysis. \emph{Technometrics}, 1994,
+\bold{36(4)}, 338-347, \url{https://doi.org/10.2307/1269949}
+
+Epifanio, I., Functional archetype and archetypoid analysis, 2016. 
+\emph{Computational Statistics and Data Analysis} \bold{104}, 24-34, 
+\url{https://doi.org/10.1016/j.csda.2016.06.007}
+
+Eugster, M.J.A. and Leisch, F., From Spider-Man to Hero - Archetypal Analysis in 
+R, 2009. \emph{Journal of Statistical Software} \bold{30(8)}, 1-23,
+\url{https://doi.org/10.18637/jss.v030.i08}
+
+Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
+with application to financial time series analysis, 2018, submitted,
+\url{https://arxiv.org/abs/1810.00919}
+}
 \author{
-Guillermo Vinue
+Irene Epifanio
 }

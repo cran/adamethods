@@ -58,9 +58,14 @@ str(afr)
 }                                                          
                                                      
 }
+\references{
+Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
+with application to financial time series analysis, 2018, submitted,
+\url{https://arxiv.org/abs/1810.00919}
+}
 \seealso{
 \code{\link[Anthropometry]{archetypoids}}
 }
 \author{
-Guillermo Vinue
+Irene Epifanio
 }

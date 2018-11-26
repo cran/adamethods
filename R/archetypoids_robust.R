@@ -6,7 +6,7 @@
 #' Robust version of the archetypoid algorithm with the Frobenius form.
 #' 
 #' @usage 
-#' archetypoids_robust(numArchoid, data, huge = 200, ArchObj, prob, aaframe)
+#' archetypoids_robust(numArchoid, data, huge = 200, ArchObj, prob)
 #' 
 #' @param numArchoid Number of archetypoids.
 #' @param data Data matrix. Each row corresponds to an observation and each column 
@@ -15,10 +15,6 @@
 #' @param ArchObj The list object returned by the 
 #' \code{\link{stepArchetypesRawData_robust}} function. 
 #' @param prob Probability with values in [0,1].
-#' @param aaframe Boolean value to indicate whether the frame-based (TRUE) 
-#' (Mair et al., 2017) or the classical (FALSE) (Eugster et al., 2009) archetypes 
-#' will be used. The frame-based archetypes are computed with an ancillary python
-#' code available at \url{https://www.uv.es/vivigui/software}.
 #' 
 #' @return 
 #' A list with the following elements:
@@ -31,23 +27,15 @@
 #' }
 #' 
 #' @author 
-#' Guillermo Vinue
-#' 
-#' @importFrom FNN knn
+#' Irene Epifanio
 #' 
 #' @seealso 
 #' \code{\link{archetypoids_norm_frob}}
 #' 
 #' @references 
-#' Eugster, M.J.A. and Leisch, F., From Spider-Man to Hero - Archetypal Analysis in 
-#' R, 2009. Journal of Statistical Software 30(8), 1-23.
-#' 
-#' Mair, S., Boubekki, A. and Brefeld, U., Frame-based Data Factorizations, 2017.
-#' Proceedings of the 34th International Conference on Machine Learning, 
-#' Sydney, Australia, 1-9.
-#' 
-#' Vinue, G., (2017). Anthropometry: An R Package for Analysis of Anthropometric Data,
-#' \emph{Journal of Statistical Software} \bold{77(6)}, 1--39 
+#' Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
+#' with application to financial time series analysis, 2018, submitted,
+#' \url{https://arxiv.org/abs/1810.00919} 
 #' 
 #' @examples 
 #' data(mtcars)
@@ -61,24 +49,21 @@
 #'                                      numRep = numRep, verbose = FALSE, 
 #'                                      saveHistory = FALSE, prob = 0.8)
 #' 
-#' # Please see do_ada_robust.R for an example with aaframe = TRUE.
-#' res <- archetypoids_robust(k, data, huge, ArchObj = lass, 0.8, FALSE)
+#' res <- archetypoids_robust(k, data, huge, ArchObj = lass, 0.8)
 #' str(res)    
 #' res$cases
 #' res$rss                                                           
-#'                  
+#'               
+#' @importFrom FNN knn                  
+#'                        
 #' @export
 
-archetypoids_robust <- function(numArchoid, data, huge = 200, ArchObj, prob, aaframe){
+archetypoids_robust <- function(numArchoid, data, huge = 200, ArchObj, prob){
 
   N = dim(data)[1]
   
-  if (aaframe) {
-    z_frame <- ArchObj
-  }else{
-    ai <- archetypes::bestModel(ArchObj[[1]])
-    z_frame <- archetypes::parameters(ai)
-  }
+  ai <- archetypes::bestModel(ArchObj[[1]])
+  z_frame <- archetypes::parameters(ai)
     
   if (is.null(z_frame)) {
    stop("No archetypes computed")  

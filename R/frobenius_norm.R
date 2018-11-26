@@ -21,7 +21,21 @@
 #' Real number.
 #' 
 #' @author 
-#' Guillermo Vinue
+#' Guillermo Vinue, Irene Epifanio
+#' 
+#' @references 
+#' Eugster, M.J.A. and Leisch, F., From Spider-Man to Hero - Archetypal Analysis in 
+#' R, 2009. \emph{Journal of Statistical Software} \bold{30(8)}, 1-23,
+#' \url{https://doi.org/10.18637/jss.v030.i08}
+#' 
+#' Vinue, G., Epifanio, I., and Alemany, S.,Archetypoids: a new approach to 
+#' define representative archetypal data, 2015.
+#' \emph{Computational Statistics and Data Analysis} \bold{87}, 102-115,
+#' \url{https://doi.org/10.1016/j.csda.2015.01.018}
+#' 
+#' Vinue, G., Anthropometry: An R Package for Analysis of Anthropometric Data, 2017.
+#' \emph{Journal of Statistical Software} \bold{77(6)}, 1-39,
+#' \url{https://doi.org/10.18637/jss.v077.i06}
 #
 #' @examples 
 #' mat <- matrix(1:4, nrow = 2)

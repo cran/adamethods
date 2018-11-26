@@ -22,7 +22,7 @@
 #' Numeric vector with the outliers.
 #' 
 #' @author 
-#' Guillermo Vinue
+#' Irene Epifanio
 #' 
 #' @seealso 
 #' \code{\link{boxplot}}

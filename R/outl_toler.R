@@ -25,6 +25,11 @@
 #' @seealso 
 #' \code{\link{adalara}}, \code{\link{fadalara}}, \code{\link{do_outl_degree}}
 #'  
+#' @references 
+#' Young, D., tolerance: An R package for estimating tolerance intervals, 2010.
+#' \emph{Journal of Statistical Software}, \bold{36(5)}, 1-39, 
+#' \url{https://doi.org/10.18637/jss.v036.i05} 
+#'  
 #' @examples 
 #' outl_toler(0.95, 1:100, 0.05)
 #'                                                      

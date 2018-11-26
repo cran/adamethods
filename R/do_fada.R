@@ -45,10 +45,15 @@
 #' }
 #' 
 #' @author 
-#' Guillermo Vinue
+#' Guillermo Vinue, Irene Epifanio
 #' 
 #' @seealso 
 #' \code{\link{stepArchetypesRawData_funct}}, \code{\link{archetypoids_funct}}
+#' 
+#' @references 
+#' Epifanio, I., Functional archetype and archetypoid analysis, 2016. 
+#' \emph{Computational Statistics and Data Analysis} \bold{104}, 24-34, 
+#' \url{https://doi.org/10.1016/j.csda.2016.06.007}
 #' 
 #' @examples 
 #' \dontrun{

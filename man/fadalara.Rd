@@ -7,7 +7,7 @@
 fadalara(data, N, m, numArchoid, numRep, huge, prob, type_alg = "fada", 
          compare = FALSE, PM, vect_tol = c(0.95, 0.9, 0.85), alpha = 0.05, 
          outl_degree = c("outl_strong", "outl_semi_strong", "outl_moderate"),
-         method = "adjbox", multiv)
+         method = "adjbox", multiv, frame)
 }
 \arguments{
 \item{data}{Data matrix. Each row corresponds to an observation and each column 
@@ -51,6 +51,12 @@ The tolerance intervals are only computed in the univariate case, i.e.,
 \code{method='toler'} only valid if \code{multiv=FALSE}.}
 
 \item{multiv}{Multivariate (TRUE) or univariate (FALSE) algorithm.}
+
+\item{frame}{Boolean value to indicate whether the frame is 
+computed (Mair et al., 2017) or not. The frame is made up of a subset of
+extreme points, so the archetypoids are only computed on the frame. 
+Low frame densities are obtained when only small portions of the data were extreme.
+However, high frame densities reduce this speed-up.}
 }
 \value{
 A list with the following elements:
@@ -142,7 +148,7 @@ registerDoParallel(cl)
 clusterSetRNGStream(cl, iseed = 2018)
 res_fl <- fadalara(data = data_alg, N = N, m = m, numArchoid = k, numRep = numRep, 
                    huge = huge, prob = prob, type_alg = "fada_rob", compare = FALSE, 
-                   PM = PM, method = "adjbox", multiv = TRUE)
+                   PM = PM, method = "adjbox", multiv = TRUE, frame = FALSE) # frame = TRUE
 stopCluster(cl)
 
 res_fl_copy <- res_fl
@@ -157,9 +163,22 @@ as.vector(res_fl$outliers)
 }
 
 }
+\references{
+Epifanio, I., Functional archetype and archetypoid analysis, 2016. 
+\emph{Computational Statistics and Data Analysis} \bold{104}, 24-34, 
+\url{https://doi.org/10.1016/j.csda.2016.06.007}
+
+Mair, S., Boubekki, A. and Brefeld, U., Frame-based Data Factorizations, 2017.
+Proceedings of the 34th International Conference on Machine Learning, 
+Sydney, Australia, 1-9.
+
+Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
+with application to financial time series analysis, 2018, submitted,
+\url{https://arxiv.org/abs/1810.00919}
+}
 \seealso{
 \code{\link{do_fada}}, \code{\link{do_fada_robust}}
 }
 \author{
-Guillermo Vinue
+Guillermo Vinue, Irene Epifanio
 }

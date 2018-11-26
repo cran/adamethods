@@ -19,10 +19,17 @@
 #' @return An object of class \code{archetypes}, see
 #'   \code{\link{as.archetypes}}.
 #'
-#'
 #' @references 
-#' Cutler and Breiman. Archetypal Analysis. Technometrics,
-#' 36(4), 1994. 338-348.
+#' Cutler, A. and Breiman, L., Archetypal Analysis. \emph{Technometrics}, 1994,
+#' \bold{36(4)}, 338-347, \url{https://doi.org/10.2307/1269949}
+#' 
+#' Epifanio, I., Functional archetype and archetypoid analysis, 2016. 
+#' \emph{Computational Statistics and Data Analysis} \bold{104}, 24-34, 
+#' \url{https://doi.org/10.1016/j.csda.2016.06.007}
+#' 
+#' Eugster, M.J.A. and Leisch, F., From Spider-Man to Hero - Archetypal Analysis in 
+#' R, 2009. \emph{Journal of Statistical Software} \bold{30(8)}, 1-23,
+#' \url{https://doi.org/10.18637/jss.v030.i08}
 #'
 #' @examples
 #' # Similarly with archetypes_funct.

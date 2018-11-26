@@ -11,24 +11,30 @@
 #' (\code{\link{archetypoids_norm_frob}}). All these functions are therefore not 
 #' solely used.
 #' 
-#' @references 
-#' Vinue, G., (2017). Anthropometry: An R Package for Analysis of Anthropometric Data,
-#' \emph{Journal of Statistical Software} \bold{77(6)}, 1--39 
-#' 
-#' Vinue, G., Epifanio, I., and Alemany, S., (2015). Archetypoids: a new approach to define 
-#' representative archetypal data, \emph{Computational Statistics and Data Analysis} \bold{87}, 
-#' 102--115.
-#' 
-#' Eugster, M. J., and Leisch, F., (2009). From Spider-Man to Hero - Archetypal Analysis in R, 
-#' \emph{Journal of Statistical Software} \bold{30}, 1--23, \url{http://www.jstatsoft.org/}.
-#' 
 #' @author 
-#' Guillermo Vinue
+#' Irene Epifanio
 #' 
 #' @seealso 
 #' \code{\link{archetypoids_norm_frob}}
 #'                  
-
+#' @references 
+#' Eugster, M.J.A. and Leisch, F., From Spider-Man to Hero - Archetypal Analysis in 
+#' R, 2009. \emph{Journal of Statistical Software} \bold{30(8)}, 1-23,
+#' \url{https://doi.org/10.18637/jss.v030.i08}
+#' 
+#' Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
+#' with application to financial time series analysis, 2018, submitted,
+#' \url{https://arxiv.org/abs/1810.00919} 
+#' 
+#' Vinue, G., Epifanio, I., and Alemany, S., Archetypoids: a new approach to 
+#' define representative archetypal data, 2015.
+#' \emph{Computational Statistics and Data Analysis} \bold{87}, 102-115,
+#' \url{https://doi.org/10.1016/j.csda.2015.01.018}
+#' 
+#' Vinue, G., Anthropometry: An R Package for Analysis of Anthropometric Data, 2017.
+#' \emph{Journal of Statistical Software} \bold{77(6)}, 1-39,
+#' \url{https://doi.org/10.18637/jss.v077.i06}                  
+#'                  
 #' Helper function to calculate the approximated convex hull.
 #' @param zs An \code{archetypes} object.
 #' @return Matrix with the points.

@@ -4,7 +4,7 @@
 \alias{archetypoids_robust}
 \title{Archetypoid algorithm with the robust Frobenius norm}
 \usage{
-archetypoids_robust(numArchoid, data, huge = 200, ArchObj, prob, aaframe)
+archetypoids_robust(numArchoid, data, huge = 200, ArchObj, prob)
 }
 \arguments{
 \item{numArchoid}{Number of archetypoids.}
@@ -18,11 +18,6 @@ corresponds to a variable. All variables are numeric.}
 \code{\link{stepArchetypesRawData_robust}} function.}
 
 \item{prob}{Probability with values in [0,1].}
-
-\item{aaframe}{Boolean value to indicate whether the frame-based (TRUE) 
-(Mair et al., 2017) or the classical (FALSE) (Eugster et al., 2009) archetypes 
-will be used. The frame-based archetypes are computed with an ancillary python
-code available at \url{https://www.uv.es/vivigui/software}.}
 }
 \value{
 A list with the following elements:
@@ -49,27 +44,20 @@ lass <- stepArchetypesRawData_robust(data = data, numArch = k,
                                      numRep = numRep, verbose = FALSE, 
                                      saveHistory = FALSE, prob = 0.8)
 
-# Please see do_ada_robust.R for an example with aaframe = TRUE.
-res <- archetypoids_robust(k, data, huge, ArchObj = lass, 0.8, FALSE)
+res <- archetypoids_robust(k, data, huge, ArchObj = lass, 0.8)
 str(res)    
 res$cases
 res$rss                                                           
-                 
+              
 }
 \references{
-Eugster, M.J.A. and Leisch, F., From Spider-Man to Hero - Archetypal Analysis in 
-R, 2009. Journal of Statistical Software 30(8), 1-23.
-
-Mair, S., Boubekki, A. and Brefeld, U., Frame-based Data Factorizations, 2017.
-Proceedings of the 34th International Conference on Machine Learning, 
-Sydney, Australia, 1-9.
-
-Vinue, G., (2017). Anthropometry: An R Package for Analysis of Anthropometric Data,
-\emph{Journal of Statistical Software} \bold{77(6)}, 1--39
+Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
+with application to financial time series analysis, 2018, submitted,
+\url{https://arxiv.org/abs/1810.00919}
 }
 \seealso{
 \code{\link{archetypoids_norm_frob}}
 }
 \author{
-Guillermo Vinue
+Irene Epifanio
 }

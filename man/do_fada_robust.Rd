@@ -87,10 +87,15 @@ str(res_fada_rob1)
 }
                                   
 }
+\references{
+Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
+with application to financial time series analysis, 2018, submitted,
+\url{https://arxiv.org/abs/1810.00919}
+}
 \seealso{
 \code{\link{stepArchetypesRawData_funct_robust}}, 
 \code{\link{archetypoids_funct_robust}}
 }
 \author{
-Guillermo Vinue
+Guillermo Vinue, Irene Epifanio
 }

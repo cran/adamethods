@@ -25,7 +25,7 @@
 #' List with the outliers for each variable.
 #' 
 #' @author 
-#' Guillermo Vinue
+#' Irene Epifanio
 #' 
 #' @seealso 
 #' \code{\link{boxplot}}

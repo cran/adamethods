@@ -83,5 +83,5 @@ outl
 \code{\link{boxplot}}
 }
 \author{
-Guillermo Vinue
+Irene Epifanio
 }

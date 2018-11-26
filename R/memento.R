@@ -13,12 +13,12 @@
 #' to the authors and maintainer of \code{archetypes}.
 #'
 #' @examples
-#'   \dontrun{
-#'   m <- new.memento()
-#'   m$save(i, state)
-#'   m$states()
-#'   m$get(i)
-#'   }
+#' \dontrun{
+#' m <- new.memento()
+#' m$save(i, state)
+#' m$states()
+#' m$get(i)
+#' }
 #' @aliases memento
 #' @rdname memento
 #' @noRd

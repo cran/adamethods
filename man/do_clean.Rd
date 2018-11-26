@@ -37,5 +37,5 @@ do_clean(t(data), num_pts, 1.5, 80)
 \code{\link{boxplot}}
 }
 \author{
-Guillermo Vinue
+Irene Epifanio
 }

@@ -13,7 +13,7 @@
 #' adalara_no_paral(data, seed, N, m, numArchoid, numRep, huge, prob, type_alg = "ada", 
 #'                  compare = FALSE, verbose = TRUE, vect_tol = c(0.95, 0.9, 0.85), 
 #'                  alpha = 0.05, outl_degree = c("outl_strong", "outl_semi_strong", 
-#'                  "outl_moderate"), method = "adjbox", aaframe, lass)
+#'                  "outl_moderate"), method = "adjbox", frame)
 #' 
 #' @param data Data matrix. Each row corresponds to an observation and each column 
 #' corresponds to a variable. All variables are numeric. 
@@ -41,11 +41,11 @@
 #' @param method Method to compute the outliers. Options allowed are 'adjbox' for
 #' using adjusted boxplots for skewed distributions, and 'toler' for using
 #' tolerance intervals.
-#' @param aaframe Boolean value to indicate whether the frame-based (TRUE) 
-#' (Mair et al., 2017) or the classical (FALSE) (Eugster et al., 2009) archetypes 
-#' will be used. The frame-based archetypes are computed with an ancillary python
-#' code available at \url{https://www.uv.es/vivigui/software}.
-#' @param lass Frame-based archetypes matrix. Only needed if \code{aaframe = TRUE}.
+#' @param frame Boolean value to indicate whether the frame is 
+#' computed (Mair et al., 2017) or not. The frame is made up of a subset of
+#' extreme points, so the archetypoids are only computed on the frame. 
+#' Low frame densities are obtained when only small portions of the data were extreme.
+#' However, high frame densities reduce this speed-up.
 #' 
 #' @return 
 #' A list with the following elements:
@@ -56,21 +56,27 @@
 #' }
 #' 
 #' @author 
-#' Guillermo Vinue
+#' Guillermo Vinue, Irene Epifanio
 #' 
 #' @seealso 
 #' \code{\link{do_ada}}, \code{\link{do_ada_robust}}, \code{\link{adalara}}
 #'  
 #' @references 
 #' Eugster, M.J.A. and Leisch, F., From Spider-Man to Hero - Archetypal Analysis in 
-#' R, 2009. Journal of Statistical Software 30(8), 1-23.
+#' R, 2009. \emph{Journal of Statistical Software} \bold{30(8)}, 1-23,
+#' \url{https://doi.org/10.18637/jss.v030.i08}
 #' 
 #' Mair, S., Boubekki, A. and Brefeld, U., Frame-based Data Factorizations, 2017.
 #' Proceedings of the 34th International Conference on Machine Learning, 
 #' Sydney, Australia, 1-9.
 #' 
-#' Vinue, G., (2017). Anthropometry: An R Package for Analysis of Anthropometric Data,
-#' \emph{Journal of Statistical Software} \bold{77(6)}, 1--39 
+#' Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
+#' with application to financial time series analysis, 2018, submitted,
+#' \url{https://arxiv.org/abs/1810.00919}
+#' 
+#' Vinue, G., Anthropometry: An R Package for Analysis of Anthropometric Data, 2017.
+#' \emph{Journal of Statistical Software} \bold{77(6)}, 1-39,
+#' \url{https://doi.org/10.18637/jss.v077.i06}
 #'  
 #' @examples 
 #' \dontrun{
@@ -100,7 +106,7 @@
 #' data1 <- as.data.frame(preproc$data)
 #' res_adalara <- adalara_no_paral(data1, 1, N, m, k, 
 #'                                 numRep, huge, prob, "ada_rob", FALSE, TRUE, 
-#'                                 method = "adjbox", aaframe = FALSE)
+#'                                 method = "adjbox", frame = FALSE)
 #'
 #' # Examine the results:
 #' res_adalara
@@ -110,12 +116,10 @@
 #'                                 vect_tol = c(0.95, 0.9, 0.85), 
 #'                                 alpha = 0.05, outl_degree = c("outl_strong", "outl_semi_strong", 
 #'                                                               "outl_moderate"),
-#'                                 method = "toler", FALSE)
+#'                                 method = "toler", frame = FALSE)
 #' res_adalara1                                 
 #'                                  
 #' }
-#'  
-#' @importFrom reticulate np_array                                                      
 #'                                                                                                                                                              
 #' @export
 
@@ -123,12 +127,8 @@ adalara_no_paral <- function(data, seed, N, m, numArchoid, numRep, huge, prob, t
                              compare = FALSE, verbose = TRUE, vect_tol = c(0.95, 0.9, 0.85), 
                              alpha = 0.05, outl_degree = c("outl_strong", "outl_semi_strong", 
                                                          "outl_moderate"), 
-                             method = "adjbox", aaframe, lass){
-  
-  frame <- NULL
-  FurthestSum <- NULL
-  ArchetypalAnalysis <- NULL
-  
+                             method = "adjbox", frame){
+
   n <- nrow(data)
   rss_aux <- Inf
   rand_obs_iter <- c()
@@ -156,26 +156,14 @@ adalara_no_paral <- function(data, seed, N, m, numArchoid, numRep, huge, prob, t
       ada_si <- do_ada(si, numArchoid, numRep, huge, compare, vect_tol, alpha, 
                        outl_degree, method) 
     }else if (type_alg == "ada_rob") { 
-      if (aaframe) {
-        X1 <- as.matrix(si)
-        X2 <- np_array(X1)      
-        q <- frame(X2)  
-        
-        H <- si[q + 1,] 
-        H1 <- as.matrix(H)
-        H2 <- np_array(H1)
-        Z_init <- H2[FurthestSum(H2, numArchoid)]
-        
-        PM <- NA
-        prob <- NA 
-        aa <- ArchetypalAnalysis(H2, Z_init, numArchoid, PM, prob, type_alg, max_iterations = 100, 
-                                 stop = FALSE, M = huge, verbose = FALSE, compute_rss = TRUE)
-        lass <- aa[[1]] 
-        ada_si <- do_ada_robust(H2, numArchoid, numRep, huge, prob, compare, vect_tol, alpha, 
-                                outl_degree, method, aaframe, lass)
+      if (frame) {
+        si_frame <- frame_in_r(si)
+        si <- si[si_frame,]
+        ada_si <- do_ada_robust(si, numArchoid, numRep, huge, prob, compare, vect_tol, alpha, 
+                                outl_degree, method)
       }else{
         ada_si <- do_ada_robust(si, numArchoid, numRep, huge, prob, compare, vect_tol, alpha, 
-                                outl_degree, method, aaframe) 
+                                outl_degree, method) 
       }
     }else{
       stop("Algorithms available are 'ada', 'ada_rob'.")

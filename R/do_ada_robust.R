@@ -12,7 +12,7 @@
 #' do_ada_robust(subset, numArchoid, numRep, huge, prob, compare = FALSE,
 #'               vect_tol = c(0.95, 0.9, 0.85), alpha = 0.05, 
 #'               outl_degree = c("outl_strong", "outl_semi_strong", "outl_moderate"),
-#'               method = "adjbox", aaframe, lass)
+#'               method = "adjbox")
 #' 
 #' @param subset Data to obtain archetypes. In ADALARA this is a subset of the 
 #' entire data frame.
@@ -32,11 +32,6 @@
 #' @param method Method to compute the outliers. Options allowed are 'adjbox' for
 #' using adjusted boxplots for skewed distributions, and 'toler' for using
 #' tolerance intervals.
-#' @param aaframe Boolean value to indicate whether the frame-based (TRUE) 
-#' (Mair et al., 2017) or the classical (FALSE) (Eugster et al., 2009) archetypes 
-#' will be used. The frame-based archetypes are computed with an ancillary python
-#' code available at \url{https://www.uv.es/vivigui/software}.
-#' @param lass Frame-based archetypes matrix. Needed if \code{aaframe = TRUE}.
 #' 
 #' @return 
 #' A list with the following elements:
@@ -51,21 +46,15 @@
 #' }
 #' 
 #' @author 
-#' Guillermo Vinue
+#' Guillermo Vinue, Irene Epifanio
 #' 
 #' @seealso 
 #' \code{\link{stepArchetypesRawData_robust}}, \code{\link{archetypoids_robust}}
 #' 
 #' @references 
-#' Eugster, M.J.A. and Leisch, F., From Spider-Man to Hero - Archetypal Analysis in 
-#' R, 2009. Journal of Statistical Software 30(8), 1-23.
-#' 
-#' Mair, S., Boubekki, A. and Brefeld, U., Frame-based Data Factorizations, 2017.
-#' Proceedings of the 34th International Conference on Machine Learning, 
-#' Sydney, Australia, 1-9.
-#' 
-#' Vinue, G., (2017). Anthropometry: An R Package for Analysis of Anthropometric Data,
-#' \emph{Journal of Statistical Software} \bold{77(6)}, 1--39  
+#' Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
+#' with application to financial time series analysis, 2018, submitted,
+#' \url{https://arxiv.org/abs/1810.00919}
 #' 
 #' @examples 
 #' \dontrun{
@@ -81,43 +70,15 @@
 #' preproc <- preprocessing(data, stand = TRUE, percAccomm = 1)
 #' set.seed(2018)
 #' res_ada_rob <- do_ada_robust(preproc$data, k, numRep, huge, 0.8,
-#'                              FALSE, method = "adjbox", aaframe = FALSE)
+#'                              FALSE, method = "adjbox")
 #' str(res_ada_rob)    
 #' 
 #' res_ada_rob1 <- do_ada_robust(preproc$data, k, numRep, huge, 0.8,
 #'                              FALSE, vect_tol = c(0.95, 0.9, 0.85), alpha = 0.05, 
 #'                              outl_degree = c("outl_strong", "outl_semi_strong", 
 #'                                              "outl_moderate"),
-#'                              method = "toler", aaframe = FALSE)
+#'                              method = "toler")
 #' str(res_ada_rob1)  
-#'  
-#' # ---------------                          
-#'                                                                          
-#' library(reticulate)
-#' source_python("frame_aa.py") # \url{https://www.uv.es/vivigui/software}.
-#' X <- read.csv("USAFSurvey.csv", header = FALSE) # \url{https://www.uv.es/vivigui/software}.
-#' X1 <- as.matrix(X)
-#' X2 <- np_array(X1)      
-#' q <- frame(X2)                 
-#' cat(paste("The frame density of USAFSurvey is ", length(q) / nrow(X) * 100, "%", sep = ""))
-#' 
-#' H <- X[q + 1,] # q+1 to get the right indexes, because python starts counting from 0.
-#' H1 <- as.matrix(H)
-#' H2 <- np_array(H1)
-#' Z_init <- H2[FurthestSum(H2, k)]
-#' 
-#' PM <- NA
-#' prob <- NA 
-#' alg <- "ada"
-#' aa <- ArchetypalAnalysis(H2, Z_init, k, PM, prob, alg, max_iterations = 100, stop = FALSE, 
-#'                          M = huge, verbose = FALSE, compute_rss = TRUE)
-#' lass <- aa[[1]]  
-#' 
-#' res_ada1 <- do_ada_robust(subset = H, numArchoid = k, numRep = numRep, 
-#'                           huge = huge, prob =0.8, compare = FALSE, 
-#'                           method = "adjbox", aaframe = TRUE, lass = lass)  
-#' # It takes a few seconds.                           
-#' str(res_ada1)                                                                        
 #' }
 #'                  
 #' @importFrom univOutl boxB
@@ -127,15 +88,13 @@
 do_ada_robust <- function(subset, numArchoid, numRep, huge, prob, compare = FALSE, 
                           vect_tol = c(0.95, 0.9, 0.85), alpha = 0.05, 
                           outl_degree = c("outl_strong", "outl_semi_strong", 
-                                          "outl_moderate"), method = "adjbox", aaframe, lass) {
+                                          "outl_moderate"), method = "adjbox") {
   
-  if (!aaframe) {
-    lass <- stepArchetypesRawData_robust(data = subset, numArch = numArchoid, 
-                                         numRep = numRep, verbose = FALSE, 
-                                         saveHistory = FALSE, prob)
-  }  
+  lass <- stepArchetypesRawData_robust(data = subset, numArch = numArchoid, 
+                                       numRep = numRep, verbose = FALSE, 
+                                       saveHistory = FALSE, prob)
   
-  ada_subset <- archetypoids_robust(numArchoid, subset, huge = huge, ArchObj = lass, prob, aaframe) 
+  ada_subset <- archetypoids_robust(numArchoid, subset, huge = huge, ArchObj = lass, prob) 
   
   k_subset <- ada_subset$cases # The same with the S3 method anthrCases(ada_subset)
   alphas_subset <- ada_subset$alphas

@@ -32,6 +32,11 @@ PM <- eval.penalty(fbasis)
 frobenius_norm_funct(mat, PM)
                  
 }
+\references{
+Epifanio, I., Functional archetype and archetypoid analysis, 2016. 
+\emph{Computational Statistics and Data Analysis} \bold{104}, 24-34, 
+\url{https://doi.org/10.1016/j.csda.2016.06.007}
+}
 \author{
-Guillermo Vinue
+Irene Epifanio
 }

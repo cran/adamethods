@@ -7,7 +7,7 @@
 adalara(data, N, m, numArchoid, numRep, huge, prob, type_alg = "ada", 
         compare = FALSE, vect_tol = c(0.95, 0.9, 0.85), alpha = 0.05, 
         outl_degree = c("outl_strong", "outl_semi_strong", "outl_moderate"), 
-        method = "adjbox", aaframe, lass)
+        method = "adjbox", frame)
 }
 \arguments{
 \item{data}{Data matrix. Each row corresponds to an observation and each column 
@@ -46,12 +46,11 @@ Needed if \code{method='toler'}.}
 using adjusted boxplots for skewed distributions, and 'toler' for using
 tolerance intervals.}
 
-\item{aaframe}{Boolean value to indicate whether the frame-based (TRUE) 
-(Mair et al., 2017) or the classical (FALSE) (Eugster et al., 2009) archetypes 
-will be used. The frame-based archetypes are computed with an ancillary python
-code available at \url{https://www.uv.es/vivigui/software}.}
-
-\item{lass}{Frame-based archetypes matrix. Only needed if \code{aaframe = TRUE}.}
+\item{frame}{Boolean value to indicate whether the frame is 
+computed (Mair et al., 2017) or not. The frame is made up of a subset of
+extreme points, so the archetypoids are only computed on the frame. 
+Low frame densities are obtained when only small portions of the data were extreme.
+However, high frame densities reduce this speed-up.}
 }
 \value{
 A list with the following elements:
@@ -103,12 +102,12 @@ preproc <- preprocessing(data, stand = TRUE, percAccomm = 1)
 data1 <- as.data.frame(preproc$data)
 
 adalara_aux <- adalara(data1, N, m, k, numRep, huge, prob, 
-                       "ada_rob", FALSE, method = "adjbox", aaframe = FALSE, lass = NULL)
+                       "ada_rob", FALSE, method = "adjbox", frame = FALSE)
 
 #adalara_aux <- adalara(data1, N, m, k, numRep, huge, prob, 
 #                       "ada_rob", FALSE, vect_tol = c(0.95, 0.9, 0.85), alpha = 0.05, 
 #                       outl_degree = c("outl_strong", "outl_semi_strong", "outl_moderate"),
-#                       method = "toler", aaframe = FALSE, lass = NULL)
+#                       method = "toler", frame = FALSE)
 
 # Take the minimum RSS, which is in the second position of every sublist:
 adalara <- adalara_aux[which.min(unlist(sapply(adalara_aux, function(x) x[2])))][[1]]
@@ -121,18 +120,24 @@ stopCluster(cl)
 }
 \references{
 Eugster, M.J.A. and Leisch, F., From Spider-Man to Hero - Archetypal Analysis in 
-R, 2009. Journal of Statistical Software 30(8), 1-23.
+R, 2009. \emph{Journal of Statistical Software} \bold{30(8)}, 1-23,
+\url{https://doi.org/10.18637/jss.v030.i08}
 
 Mair, S., Boubekki, A. and Brefeld, U., Frame-based Data Factorizations, 2017.
 Proceedings of the 34th International Conference on Machine Learning, 
 Sydney, Australia, 1-9.
 
-Vinue, G., (2017). Anthropometry: An R Package for Analysis of Anthropometric Data,
-\emph{Journal of Statistical Software} \bold{77(6)}, 1--39
+Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
+with application to financial time series analysis, 2018, submitted,
+\url{https://arxiv.org/abs/1810.00919}
+
+Vinue, G., Anthropometry: An R Package for Analysis of Anthropometric Data, 2017.
+\emph{Journal of Statistical Software} \bold{77(6)}, 1-39,
+\url{https://doi.org/10.18637/jss.v077.i06}
 }
 \seealso{
 \code{\link{do_ada}}, \code{\link{do_ada_robust}}, \code{\link{adalara_no_paral}}
 }
 \author{
-Guillermo Vinue
+Guillermo Vinue, Irene Epifanio
 }

@@ -14,7 +14,7 @@
 #' fadalara(data, N, m, numArchoid, numRep, huge, prob, type_alg = "fada", 
 #'          compare = FALSE, PM, vect_tol = c(0.95, 0.9, 0.85), alpha = 0.05, 
 #'          outl_degree = c("outl_strong", "outl_semi_strong", "outl_moderate"),
-#'          method = "adjbox", multiv)
+#'          method = "adjbox", multiv, frame)
 #' 
 #' @param data Data matrix. Each row corresponds to an observation and each column 
 #' corresponds to a variable. All variables are numeric. The data must have row names
@@ -43,6 +43,11 @@
 #' The tolerance intervals are only computed in the univariate case, i.e.,
 #' \code{method='toler'} only valid if \code{multiv=FALSE}.
 #' @param multiv Multivariate (TRUE) or univariate (FALSE) algorithm.
+#' @param frame Boolean value to indicate whether the frame is 
+#' computed (Mair et al., 2017) or not. The frame is made up of a subset of
+#' extreme points, so the archetypoids are only computed on the frame. 
+#' Low frame densities are obtained when only small portions of the data were extreme.
+#' However, high frame densities reduce this speed-up.
 #' 
 #' @return 
 #' A list with the following elements:
@@ -64,10 +69,23 @@
 #' }
 #' 
 #' @author 
-#' Guillermo Vinue
+#' Guillermo Vinue, Irene Epifanio
 #' 
 #' @seealso 
 #' \code{\link{do_fada}}, \code{\link{do_fada_robust}}
+#' 
+#' @references 
+#' Epifanio, I., Functional archetype and archetypoid analysis, 2016. 
+#' \emph{Computational Statistics and Data Analysis} \bold{104}, 24-34, 
+#' \url{https://doi.org/10.1016/j.csda.2016.06.007}
+#' 
+#' Mair, S., Boubekki, A. and Brefeld, U., Frame-based Data Factorizations, 2017.
+#' Proceedings of the 34th International Conference on Machine Learning, 
+#' Sydney, Australia, 1-9.
+#' 
+#' Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
+#' with application to financial time series analysis, 2018, submitted,
+#' \url{https://arxiv.org/abs/1810.00919}
 #' 
 #' @examples 
 #' \dontrun{
@@ -132,7 +150,7 @@
 #' clusterSetRNGStream(cl, iseed = 2018)
 #' res_fl <- fadalara(data = data_alg, N = N, m = m, numArchoid = k, numRep = numRep, 
 #'                    huge = huge, prob = prob, type_alg = "fada_rob", compare = FALSE, 
-#'                    PM = PM, method = "adjbox", multiv = TRUE)
+#'                    PM = PM, method = "adjbox", multiv = TRUE, frame = FALSE) # frame = TRUE
 #' stopCluster(cl)
 #'
 #' res_fl_copy <- res_fl
@@ -153,7 +171,7 @@
 fadalara <- function(data, N, m, numArchoid, numRep, huge, prob, type_alg = "fada", 
                      compare = FALSE, PM, vect_tol = c(0.95, 0.9, 0.85), alpha = 0.05, 
                      outl_degree = c("outl_strong", "outl_semi_strong", "outl_moderate"),
-                     method = "adjbox", multiv){
+                     method = "adjbox", multiv, frame){
   nbasis <- dim(data)[2] # number of basis.
   nvars <- dim(data)[3] # number of variables.
   
@@ -193,8 +211,23 @@ fadalara <- function(data, N, m, numArchoid, numRep, huge, prob, type_alg = "fad
                                outl_degree, method) 
           }else if (type_alg == "fada_rob") { 
             if (multiv) {
+              if (frame) {
+                g1 <- t(si[,,1])
+                G <- dim(si)[3]
+                for (i in 2:G) {
+                  g12 <- t(si[,,i])  
+                  g1 <- rbind(g1, g12) 
+                }
+                X <- t(g1)
+                si_frame <- frame_in_r(X)
+                si <- apply(si, 2:3, function(x) x[si_frame])
+              }
               fada_si <- do_fada_multiv_robust(si, numArchoid, numRep, huge, prob, compare, PM, method)
             }else{
+              if (frame) {
+                si_frame <- frame_in_r(si)
+                si <- si[si_frame,]
+              } 
               fada_si <- do_fada_robust(si, numArchoid, numRep, huge, prob, compare, PM, vect_tol, alpha, 
                                         outl_degree, method) 
             }

@@ -1,6 +1,14 @@
 Package: adamethods
 ----------------------
 
+Version: 1.1 [2018-11-26]
+* An R function to use the frame approach inside the ADALARA and FADALARA algorithms have been included. This function
+was kindly provided by Sebastian Mair (see Mair S., Boubekki A. and Brefeld U. (2017) 'Frame-based data factorizations'. 
+In: Proceedings of the 34th International Conference on Machine Learning, Sydney, Australia, 1-9, 
+http://proceedings.mlr.press/v70/mair17a/mair17a.pdf)
+* References have been accurately corrected.
+* Submitted to CRAN.
+
 Version: 1.0 [2018-11-05]
 * First package version.
 * Submitted to CRAN.
