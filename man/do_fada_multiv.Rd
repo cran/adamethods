@@ -78,6 +78,7 @@ Xs <- X
 Xs[,,1] <- scale(X[,,1])
 Xs[,,2] <- scale(X[,,2])
 
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(2018)
 res_fada <- do_fada_multiv(subset = Xs, numArchoid = 3, numRep = 5, huge = 200, 
                            compare = FALSE, PM = PM, method = "adjbox")

@@ -70,11 +70,13 @@ temp_points <- 1:ncol(hgtm)
 temp_fd <- Data2fd(argvals = temp_points, y = growth$hgtm, basisobj = basis_fd)
 data_archs <- t(temp_fd$coefs)
 
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(2018)
 res_fada <- do_fada(subset = data_archs, numArchoid = 3, numRep = 5, huge = 200, 
                     compare = FALSE, PM = PM, method = "adjbox")
 str(res_fada)      
 
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(2018)
 res_fada1 <- do_fada(subset = data_archs, numArchoid = 3, numRep = 5, huge = 200, 
                      compare = FALSE, PM = PM, 

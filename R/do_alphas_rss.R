@@ -50,6 +50,7 @@
 #' numRep <- 2
 #' huge <- 200
 #' 
+#' suppressWarnings(RNGversion("3.5.0"))
 #' set.seed(1)
 #' rand_obs_si <- sample(1:n, size = m) 
 #' 

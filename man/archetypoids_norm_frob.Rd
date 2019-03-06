@@ -55,8 +55,9 @@ R, 2009. \emph{Journal of Statistical Software} \bold{30(8)}, 1-23,
 \url{https://doi.org/10.18637/jss.v030.i08}
 
 Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
-with application to financial time series analysis, 2018, submitted,
-\url{https://arxiv.org/abs/1810.00919} 
+with application to financial time series analysis, 2019. 
+\emph{Physica A: Statistical Mechanics and its Applications} \bold{519}, 195-208. 
+\url{https://doi.org/10.1016/j.physa.2018.12.036}
 
 Vinue, G., Epifanio, I., and Alemany, S., Archetypoids: a new approach to 
 define representative archetypal data, 2015.

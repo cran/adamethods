@@ -63,13 +63,21 @@
 #' R, 2009. \emph{Journal of Statistical Software} \bold{30(8)}, 1-23,
 #' \url{https://doi.org/10.18637/jss.v030.i08}
 #' 
+#' Hubert, M. and Vandervieren, E., An adjusted boxplot for skewed distributions, 2008.
+#' \emph{Computational Statistics and Data Analysis} \bold{52(12)}, 5186-5201,
+#' \url{https://doi.org/10.1016/j.csda.2007.11.008}
+#' 
+#' Kaufman, L. and Rousseeuw, P.J., Clustering Large Data Sets, 1986.
+#' \emph{Pattern Recognition in Practice}, 425-437.
+#' 
 #' Mair, S., Boubekki, A. and Brefeld, U., Frame-based Data Factorizations, 2017.
 #' Proceedings of the 34th International Conference on Machine Learning, 
 #' Sydney, Australia, 1-9.
 #' 
 #' Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
-#' with application to financial time series analysis, 2018, submitted,
-#' \url{https://arxiv.org/abs/1810.00919}
+#' with application to financial time series analysis, 2019. 
+#' \emph{Physica A: Statistical Mechanics and its Applications} \bold{519}, 195-208. 
+#' \url{https://doi.org/10.1016/j.physa.2018.12.036}
 #' 
 #' Vinue, G., Anthropometry: An R Package for Analysis of Anthropometric Data, 2017.
 #' \emph{Journal of Statistical Software} \bold{77(6)}, 1-39,
@@ -170,12 +178,10 @@ adalara <- function(data, N, m, numArchoid, numRep, huge, prob, type_alg = "ada"
             if (frame) {
               si_frame <- frame_in_r(si)
               si <- si[si_frame,]
-              ada_si <- do_ada_robust(si, numArchoid, numRep, huge, prob, compare, vect_tol, alpha, 
-                                      outl_degree, method)
-            }else{
-              ada_si <- do_ada_robust(si, numArchoid, numRep, huge, prob, compare, vect_tol, alpha, 
-                                      outl_degree, method) 
-            }
+              rand_obs_si <- rand_obs_si[si_frame]
+            }  
+            ada_si <- do_ada_robust(si, numArchoid, numRep, huge, prob, compare, vect_tol, alpha, 
+                                    outl_degree, method)
           }else{
              stop("Algorithms available are 'ada' or 'ada_rob'.")
            }  

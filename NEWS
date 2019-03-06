@@ -1,6 +1,15 @@
 Package: adamethods
 ----------------------
 
+Version: 1.2 [2019-03-06]
+* suppressWarnings(RNGversion("3.5.0")) has been inserted before calling set.seed() in the examples, following
+CRAN maintainers' recommendations.
+* The 'Value' and 'Examples' section of do_knno() have been updated.
+* A typo in the ADALARA and FADALARA algorithms has been corrected about the update of the set of
+the random observations sampled after the computation of the frame (rand_obs_si <- rand_obs_si[si_frame]).
+* References have been updated.
+* Submitted to CRAN.
+
 Version: 1.1 [2018-11-26]
 * An R function to use the frame approach inside the ADALARA and FADALARA algorithms have been included. This function
 was kindly provided by Sebastian Mair (see Mair S., Boubekki A. and Brefeld U. (2017) 'Frame-based data factorizations'. 

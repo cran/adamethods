@@ -15,6 +15,9 @@
 #' @param k Number of neighbors of a point that we are interested in.
 #' @param top_n Total number of outliers we are interested in.
 #' 
+#' @return 
+#' Vector of outliers.
+#' 
 #' @author 
 #' Guillermo Vinue
 #'
@@ -27,7 +30,9 @@
 #' @examples 
 #' data(mtcars)
 #' data <- as.matrix(mtcars)
-#' do_knno(data, 3, 2)
+#' outl <- do_knno(data, 3, 2)
+#' outl
+#' data[outl,]
 #'                  
 #' @export
 

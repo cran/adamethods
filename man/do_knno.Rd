@@ -13,6 +13,9 @@ do_knno(data, k, top_n)
 
 \item{top_n}{Total number of outliers we are interested in.}
 }
+\value{
+Vector of outliers.
+}
 \description{
 Ramaswamy et al. proposed the k-nearest neighbors outlier detection method (kNNo). 
 Each point's anomaly score is the distance to its kth nearest neighbor in the 
@@ -22,7 +25,9 @@ score is, the more anomalous it is.
 \examples{
 data(mtcars)
 data <- as.matrix(mtcars)
-do_knno(data, 3, 2)
+outl <- do_knno(data, 3, 2)
+outl
+data[outl,]
                  
 }
 \references{

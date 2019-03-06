@@ -72,11 +72,13 @@ temp_points <- 1:ncol(hgtm)
 temp_fd <- Data2fd(argvals = temp_points, y = growth$hgtm, basisobj = basis_fd)
 data_archs <- t(temp_fd$coefs)
 
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(2018)
 res_fada_rob <- do_fada_robust(subset = data_archs, numArchoid = 3, numRep = 5, huge = 200,
                                prob = 0.75, compare = FALSE, PM = PM, method = "adjbox")
 str(res_fada_rob)  
 
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(2018)
 res_fada_rob1 <- do_fada_robust(subset = data_archs, numArchoid = 3, numRep = 5, huge = 200,
                                 prob = 0.75, compare = FALSE, PM = PM, 
@@ -89,8 +91,9 @@ str(res_fada_rob1)
 }
 \references{
 Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
-with application to financial time series analysis, 2018, submitted,
-\url{https://arxiv.org/abs/1810.00919}
+with application to financial time series analysis, 2019. 
+\emph{Physica A: Statistical Mechanics and its Applications} \bold{519}, 195-208. 
+\url{https://doi.org/10.1016/j.physa.2018.12.036}
 }
 \seealso{
 \code{\link{stepArchetypesRawData_funct_robust}}, 

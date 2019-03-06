@@ -63,6 +63,7 @@ numRep <- 2
 huge <- 200
 
 preproc <- preprocessing(data, stand = TRUE, percAccomm = 1)
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(2018)
 res_ada <- do_ada(preproc$data, k, numRep, huge, FALSE, method = "adjbox")
 str(res_ada)     
@@ -79,7 +80,7 @@ Eugster, M.J.A. and Leisch, F., From Spider-Man to Hero - Archetypal Analysis in
 R, 2009. \emph{Journal of Statistical Software} \bold{30(8)}, 1-23,
 \url{https://doi.org/10.18637/jss.v030.i08}
 
-Vinue, G., Epifanio, I., and Alemany, S.,Archetypoids: a new approach to 
+Vinue, G., Epifanio, I., and Alemany, S., Archetypoids: a new approach to 
 define representative archetypal data, 2015.
 \emph{Computational Statistics and Data Analysis} \bold{87}, 102-115,
 \url{https://doi.org/10.1016/j.csda.2015.01.018}

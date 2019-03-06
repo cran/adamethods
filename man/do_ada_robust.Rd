@@ -68,6 +68,7 @@ numRep <- 2
 huge <- 200
 
 preproc <- preprocessing(data, stand = TRUE, percAccomm = 1)
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(2018)
 res_ada_rob <- do_ada_robust(preproc$data, k, numRep, huge, 0.8,
                              FALSE, method = "adjbox")
@@ -84,8 +85,9 @@ str(res_ada_rob1)
 }
 \references{
 Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
-with application to financial time series analysis, 2018, submitted,
-\url{https://arxiv.org/abs/1810.00919}
+with application to financial time series analysis, 2019. 
+\emph{Physica A: Statistical Mechanics and its Applications} \bold{519}, 195-208. 
+\url{https://doi.org/10.1016/j.physa.2018.12.036}
 }
 \seealso{
 \code{\link{stepArchetypesRawData_robust}}, \code{\link{archetypoids_robust}}

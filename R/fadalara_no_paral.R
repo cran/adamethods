@@ -82,13 +82,21 @@
 #' \emph{Computational Statistics and Data Analysis} \bold{104}, 24-34, 
 #' \url{https://doi.org/10.1016/j.csda.2016.06.007}
 #' 
+#' Hubert, M. and Vandervieren, E., An adjusted boxplot for skewed distributions, 2008.
+#' \emph{Computational Statistics and Data Analysis} \bold{52(12)}, 5186-5201,
+#' \url{https://doi.org/10.1016/j.csda.2007.11.008}
+#' 
+#' Kaufman, L. and Rousseeuw, P.J., Clustering Large Data Sets, 1986.
+#' \emph{Pattern Recognition in Practice}, 425-437.
+#' 
 #' Mair, S., Boubekki, A. and Brefeld, U., Frame-based Data Factorizations, 2017.
 #' Proceedings of the 34th International Conference on Machine Learning, 
 #' Sydney, Australia, 1-9.
 #' 
 #' Moliner, J. and Epifanio, I., Robust multivariate and functional archetypal analysis 
-#' with application to financial time series analysis, 2018, submitted,
-#' \url{https://arxiv.org/abs/1810.00919}
+#' with application to financial time series analysis, 2019. 
+#' \emph{Physica A: Statistical Mechanics and its Applications} \bold{519}, 195-208. 
+#' \url{https://doi.org/10.1016/j.physa.2018.12.036}
 #' 
 #' @examples 
 #' \dontrun{
@@ -225,12 +233,15 @@ fadalara_no_paral <- function(data, seed, N, m, numArchoid, numRep, huge, prob, 
             X <- t(g1)
             si_frame <- frame_in_r(X)
             si <- apply(si, 2:3, function(x) x[si_frame])
+            rand_obs_si <- rand_obs_si[si_frame]
         }
         fada_si <- do_fada_multiv_robust(si, numArchoid, numRep, huge, prob, compare, PM, method)
       }else{
         if (frame) {
           si_frame <- frame_in_r(si)
           si <- si[si_frame,]
+          rand_obs_si <- rand_obs_si[si_frame]
+          #table(rownames(data)[rand_obs_si] == rownames(si)) is always TRUE.
         }  
         fada_si <- do_fada_robust(si, numArchoid, numRep, huge, prob, compare, PM, vect_tol, alpha, 
                                   outl_degree, method) 

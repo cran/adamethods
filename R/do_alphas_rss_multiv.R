@@ -99,6 +99,7 @@
 #' nvars <- dim(data_alg)[3] # number of variables.
 #' n <- nrow(data_alg)
 #' 
+#' suppressWarnings(RNGversion("3.5.0"))
 #' set.seed(1) 
 #' rand_obs_si <- sample(1:n, size = m)  
 #' si <- apply(data_alg, 2:3, function(x) x[rand_obs_si])  
