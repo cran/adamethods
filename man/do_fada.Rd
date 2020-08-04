@@ -7,7 +7,7 @@
 do_fada(subset, numArchoid, numRep, huge, compare = FALSE, PM,
               vect_tol = c(0.95, 0.9, 0.85), alpha = 0.05, 
               outl_degree = c("outl_strong", "outl_semi_strong", "outl_moderate"),
-              method = "adjbox")
+              method = "adjbox", prob)
 }
 \arguments{
 \item{subset}{Data to obtain archetypes. In fadalara this is a subset of the 
@@ -36,6 +36,8 @@ Needed if \code{method='toler'}.}
 \item{method}{Method to compute the outliers. Options allowed are 'adjbox' for
 using adjusted boxplots for skewed distributions, and 'toler' for using
 tolerance intervals.}
+
+\item{prob}{If \code{compare=TRUE}, probability with values in [0,1].}
 }
 \value{
 A list with the following elements:
@@ -84,6 +86,11 @@ res_fada1 <- do_fada(subset = data_archs, numArchoid = 3, numRep = 5, huge = 200
                      outl_degree = c("outl_strong", "outl_semi_strong", "outl_moderate"),
                      method = "toler")
 str(res_fada1)                               
+
+res_fada2 <- do_fada(subset = data_archs, numArchoid = 3, numRep = 5, huge = 200, 
+                    compare = TRUE, PM = PM, method = "adjbox", prob = 0.8)
+str(res_fada2)  
+
 }
                                   
 }

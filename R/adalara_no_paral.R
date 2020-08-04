@@ -162,7 +162,7 @@ adalara_no_paral <- function(data, seed, N, m, numArchoid, numRep, huge, prob, t
     # Apply the ADA algorithm on si to compute k_si archetypoids:
     if (type_alg == "ada") {
       ada_si <- do_ada(si, numArchoid, numRep, huge, compare, vect_tol, alpha, 
-                       outl_degree, method) 
+                       outl_degree, method, prob) 
     }else if (type_alg == "ada_rob") { 
       if (frame) {
         si_frame <- frame_in_r(si)

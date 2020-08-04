@@ -10,7 +10,7 @@
 #' 
 #' @usage 
 #' do_fada_multiv(subset, numArchoid, numRep, huge, compare = FALSE, PM,
-#'                method = "adjbox")
+#'                method = "adjbox", prob)
 #' 
 #' @param subset Data to obtain archetypes. In fadalara this is a subset of the 
 #' entire data frame.
@@ -23,6 +23,7 @@
 #' @param method Method to compute the outliers. So far the only option allowed is 
 #' 'adjbox' for using adjusted boxplots for skewed distributions. The use of
 #' tolerance intervals might also be explored in the future for the multivariate case.
+#' @param prob If \code{compare=TRUE}, probability with values in [0,1].
 #' 
 #' @return 
 #' A list with the following elements:
@@ -85,13 +86,13 @@
 #' set.seed(2018)
 #' res_fada <- do_fada_multiv(subset = Xs, numArchoid = 3, numRep = 5, huge = 200, 
 #'                            compare = FALSE, PM = PM, method = "adjbox")
-#' str(res_fada)                             
+#' str(res_fada)     
 #' }
 #'                                   
 #' @export
 
 do_fada_multiv <- function(subset, numArchoid, numRep, huge, compare = FALSE, PM, 
-                           method = "adjbox") {
+                           method = "adjbox", prob) {
   
   nbasis <- dim(subset)[2] # number of basis.
   nvars <- dim(subset)[3] # number of variables.
@@ -151,7 +152,7 @@ do_fada_multiv <- function(subset, numArchoid, numRep, huge, compare = FALSE, PM
     }
     
     resid <- zs[1:(nrow(zs) - 1),] %*% alphas - x_gvv[1:(nrow(x_gvv) - 1),]
-    rss_rob <- frobenius_norm_funct_robust(resid) / n
+    rss_rob <- frobenius_norm_funct_robust(resid, PM, prob) / n
   }
   
   #return(c(list(k_subset = k_subset, alphas_subset = alphas_subset, 

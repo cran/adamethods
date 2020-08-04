@@ -155,11 +155,8 @@ res_fl_copy <- res_fl
 res_fl <- res_fl[which.min(unlist(sapply(res_fl, function(x) x[2])))][[1]]
 str(res_fl)
 res_fl$cases
-#[1]  7  9 10
 res_fl$rss
-#[1] 5.772298
 as.vector(res_fl$outliers)
-#integer(0)
 }
 
 }

@@ -165,11 +165,8 @@
 #' res_fl <- res_fl[which.min(unlist(sapply(res_fl, function(x) x[2])))][[1]]
 #' str(res_fl)
 #' res_fl$cases
-#' #[1]  7  9 10
 #' res_fl$rss
-#' #[1] 5.772298
 #' as.vector(res_fl$outliers)
-#' #integer(0)
 #' }
 #' 
 #' @importFrom foreach foreach %dopar%
@@ -216,7 +213,7 @@ fadalara <- function(data, N, m, numArchoid, numRep, huge, prob, type_alg = "fad
           # Apply the FADA algorithm on si to compute k_si archetypoids:
           if (type_alg == "fada") {
             fada_si <- do_fada(si, numArchoid, numRep, huge, compare, PM, vect_tol, alpha, 
-                               outl_degree, method) 
+                               outl_degree, method, prob) 
           }else if (type_alg == "fada_rob") { 
             if (multiv) {
               if (frame) {

@@ -11,7 +11,7 @@
 #' do_ada(subset, numArchoid, numRep, huge, compare = FALSE,
 #'               vect_tol = c(0.95, 0.9, 0.85), alpha = 0.05, 
 #'               outl_degree = c("outl_strong", "outl_semi_strong", "outl_moderate"),
-#'               method = "adjbox")
+#'               method = "adjbox", prob)
 #' 
 #' @param subset Data to obtain archetypes. In ADALARA this is a subset of the 
 #' entire data frame.
@@ -29,6 +29,7 @@
 #' @param method Method to compute the outliers. Options allowed are 'adjbox' for
 #' using adjusted boxplots for skewed distributions, and 'toler' for using
 #' tolerance intervals.
+#' @param prob If \code{compare=TRUE}, probability with values in [0,1].
 #' 
 #' @return 
 #' A list with the following elements:
@@ -83,13 +84,16 @@
 #'                    outl_degree = c("outl_strong", "outl_semi_strong", 
 #'                                    "outl_moderate"), method = "toler")
 #' str(res_ada1) 
+#' 
+#' res_ada2 <- do_ada(preproc$data, k, numRep, huge, TRUE, method = "adjbox", prob = 0.8)
+#' str(res_ada2) 
 #'                  
 #' @export
 
 do_ada <- function(subset, numArchoid, numRep, huge, compare = FALSE, 
                    vect_tol = c(0.95, 0.9, 0.85), alpha = 0.05, 
                    outl_degree = c("outl_strong", "outl_semi_strong", 
-                                   "outl_moderate"), method = "adjbox") {
+                                   "outl_moderate"), method = "adjbox", prob) {
   
   lass <- stepArchetypesRawData_norm_frob(data = subset, numArch = numArchoid, 
                                           numRep = numRep, verbose = FALSE, 
@@ -133,7 +137,7 @@ do_ada <- function(subset, numArchoid, numRep, huge, compare = FALSE,
     }
     
     resid <- zs[1:(nrow(zs) - 1),] %*% alphas - x_gvv[1:(nrow(x_gvv) - 1),]
-    rss_rob <- frobenius_norm_robust(resid) / n
+    rss_rob <- frobenius_norm_robust(resid, prob) / n
   }
   
   return(list(cases = k_subset, alphas = alphas_subset, 

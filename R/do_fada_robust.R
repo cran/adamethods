@@ -139,7 +139,7 @@ do_fada_robust <- function(subset, numArchoid, numRep, huge, prob, compare = FAL
     }
     
     resid <- zs[1:(nrow(zs) - 1),] %*% alphas - x_gvv[1:(nrow(x_gvv) - 1),]
-    rss_non_rob <- frobenius_norm_funct(resid) / n
+    rss_non_rob <- frobenius_norm_funct(resid, PM) / n
   }
   
   #return(c(list(k_subset = k_subset, alphas_subset = alphas_subset, 

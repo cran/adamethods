@@ -1,6 +1,10 @@
 Package: adamethods
 ----------------------
 
+Version: 1.2.1 [2020-08-04]
+* The paper presenting this package has been published, so its doi link has been added to the DESCRIPTION file.
+* Submitted to CRAN.
+
 Version: 1.2 [2019-03-06]
 * suppressWarnings(RNGversion("3.5.0")) has been inserted before calling set.seed() in the examples, following
 CRAN maintainers' recommendations.

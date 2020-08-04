@@ -12,7 +12,7 @@
 #' do_fada(subset, numArchoid, numRep, huge, compare = FALSE, PM,
 #'               vect_tol = c(0.95, 0.9, 0.85), alpha = 0.05, 
 #'               outl_degree = c("outl_strong", "outl_semi_strong", "outl_moderate"),
-#'               method = "adjbox")
+#'               method = "adjbox", prob)
 #' 
 #' @param subset Data to obtain archetypes. In fadalara this is a subset of the 
 #' entire data frame.
@@ -31,6 +31,7 @@
 #' @param method Method to compute the outliers. Options allowed are 'adjbox' for
 #' using adjusted boxplots for skewed distributions, and 'toler' for using
 #' tolerance intervals.
+#' @param prob If \code{compare=TRUE}, probability with values in [0,1].
 #' 
 #' @return 
 #' A list with the following elements:
@@ -84,6 +85,11 @@
 #'                      outl_degree = c("outl_strong", "outl_semi_strong", "outl_moderate"),
 #'                      method = "toler")
 #' str(res_fada1)                               
+#' 
+#' res_fada2 <- do_fada(subset = data_archs, numArchoid = 3, numRep = 5, huge = 200, 
+#'                     compare = TRUE, PM = PM, method = "adjbox", prob = 0.8)
+#' str(res_fada2)  
+#' 
 #' }
 #'                                   
 #' @export
@@ -91,7 +97,7 @@
 do_fada <- function(subset, numArchoid, numRep, huge, compare = FALSE, PM, 
                     vect_tol = c(0.95, 0.9, 0.85), alpha = 0.05, 
                     outl_degree = c("outl_strong", "outl_semi_strong", 
-                                    "outl_moderate"), method = "adjbox") {
+                                    "outl_moderate"), method = "adjbox", prob) {
   
   lass <- stepArchetypesRawData_funct(data = subset, numArch = numArchoid, 
                                       numRep = numRep, verbose = FALSE, 
@@ -136,7 +142,7 @@ do_fada <- function(subset, numArchoid, numRep, huge, compare = FALSE, PM,
     }
     
     resid <- zs[1:(nrow(zs) - 1),] %*% alphas - x_gvv[1:(nrow(x_gvv) - 1),]
-    rss_rob <- frobenius_norm_funct_robust(resid) / n
+    rss_rob <- frobenius_norm_funct_robust(resid, PM, prob) / n
   }
   
   #return(c(list(k_subset = k_subset, alphas_subset = alphas_subset, 

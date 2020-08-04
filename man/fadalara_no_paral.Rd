@@ -152,11 +152,8 @@ res_fl <- fadalara_no_paral(data = data_alg, seed = seed, N = N, m = m,
                    
 str(res_fl)
 res_fl$cases
-#[1]  5  8 12
 res_fl$rss
-#[1] 3.933064
 as.vector(res_fl$outliers)
-#[1] 13 29
 }
  
 }

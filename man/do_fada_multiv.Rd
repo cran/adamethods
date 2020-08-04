@@ -5,7 +5,7 @@
 \title{Run the whole archetypoid analysis with the functional multivariate Frobenius norm}
 \usage{
 do_fada_multiv(subset, numArchoid, numRep, huge, compare = FALSE, PM,
-               method = "adjbox")
+               method = "adjbox", prob)
 }
 \arguments{
 \item{subset}{Data to obtain archetypes. In fadalara this is a subset of the 
@@ -25,6 +25,8 @@ to compare these results with the ones provided by \code{\link{do_fada_robust}}.
 \item{method}{Method to compute the outliers. So far the only option allowed is 
 'adjbox' for using adjusted boxplots for skewed distributions. The use of
 tolerance intervals might also be explored in the future for the multivariate case.}
+
+\item{prob}{If \code{compare=TRUE}, probability with values in [0,1].}
 }
 \value{
 A list with the following elements:
@@ -82,7 +84,7 @@ suppressWarnings(RNGversion("3.5.0"))
 set.seed(2018)
 res_fada <- do_fada_multiv(subset = Xs, numArchoid = 3, numRep = 5, huge = 200, 
                            compare = FALSE, PM = PM, method = "adjbox")
-str(res_fada)                             
+str(res_fada)     
 }
                                   
 }

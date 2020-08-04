@@ -160,11 +160,8 @@
 #'                    
 #' str(res_fl)
 #' res_fl$cases
-#' #[1]  5  8 12
 #' res_fl$rss
-#' #[1] 3.933064
 #' as.vector(res_fl$outliers)
-#' #[1] 13 29
 #' }
 #'  
 #' @importFrom parallel nextRNGStream                                                      
@@ -220,7 +217,7 @@ fadalara_no_paral <- function(data, seed, N, m, numArchoid, numRep, huge, prob, 
     # Apply the FADA algorithm on si to compute k_si archetypoids:
     if (type_alg == "fada") {
       fada_si <- do_fada(si, numArchoid, numRep, huge, compare, PM, vect_tol, alpha, 
-                         outl_degree, method) 
+                         outl_degree, method, prob) 
     }else if (type_alg == "fada_rob") { 
       if (multiv) {
         if (frame) {
